@@ -499,7 +499,7 @@ def print_results(results):
 
         sum_result += result[0]
 
-        print('WRAcc: {}, Pattern: {}'.format(result[0], pattern_display))
+        print('Quality: {}, Pattern: {}'.format(result[0], pattern_display))
 
     print('Average score :{}'.format(sum_result / len(results)))
 

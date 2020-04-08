@@ -11,7 +11,7 @@ from seqscout.utils import read_data, read_data_kosarak, \
     compute_first_zero_mask, compute_last_ones_mask, \
     count_target_class_data, extract_items, compute_quality, compute_quality_vertical,  \
     sequence_immutable_to_mutable, encode_items, encode_data, \
-    print_results_decode, read_jmlr, reduce_k_length
+    print_results_decode, read_jmlr, print_results
 
 from seqscout.priorityset import PrioritySet, PrioritySetUCB
 import seqscout.conf as conf
@@ -320,7 +320,7 @@ def seq_scout_api(dataset=conf.DATA, time_budget=conf.TIME_BUDGET, top_k=conf.TO
     '''
 
     if dataset == 'splice':
-        data = read_data(pathlib.Path(__file__).parent.parent / '/data/splice.data')
+        data = read_data(pathlib.Path(__file__).parent.parent / 'data/splice.data')
         target_class = 'EI'
         enable_i = False
     elif dataset == 'alsbu':
@@ -372,25 +372,25 @@ def seq_scout_api(dataset=conf.DATA, time_budget=conf.TIME_BUDGET, top_k=conf.TO
 
 
 def launch():
-    #DATA = read_data_sc2('../data/sequences-TZ-45.txt')[:5000]
+    DATA = read_data_sc2('../data/sequences-TZ-45.txt')[:5000]
     #DATA = reduce_k_length(10, DATA)
 
     # DATA = read_data_kosarak('../data/blocks.data')
     # DATA = read_data_kosarak('../data/skating.data')
     # DATA = read_data_kosarak('../data/context.data')
     # DATA = read_data(pathlib.Path(__file__).parent.parent / 'data/promoters.data')
-    DATA = read_jmlr('machin', pathlib.Path(__file__).parent.parent / 'data/jmlr/jmlr')
+    # DATA = read_jmlr('machin', pathlib.Path(__file__).parent.parent / 'data/jmlr/jmlr')
 
 
     #ITEMS = extract_items(DATA)
     #ITEMS, items_to_encoding, encoding_to_items = encode_items(ITEMS)
     #DATA = encode_data(DATA, items_to_encoding)
 
-    results = seq_scout(DATA, '+', time_budget=12, top_k=5, enable_i=False, vertical=False, iterations_limit=100)
+    results = seq_scout(DATA, '1', time_budget=60, top_k=5, enable_i=False, vertical=False, iterations_limit=10000)
 
     #results = seq_scout_api(DATA, '+', 10, 5)
-
-    #print_results_decode(results, encoding_to_items)
+    print_results(results)
+    #print_results_decode(results, encodi   ng_to_items)
 
 
 if __name__ == '__main__':
